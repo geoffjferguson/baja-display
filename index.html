@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>Playa Hermosa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.js" defer></script>
 <style>
-:root{--t:#FFFFFF;--m:rgba(255,255,255,.84);--d:rgba(255,255,255,.7);--tile:rgba(255,255,255,.13);--edge:rgba(255,255,255,.16);--rain:#B5E1FF}
+:root{color-scheme:dark;--t:#FFFFFF;--m:rgba(255,255,255,.84);--d:rgba(255,255,255,.7);--tile:rgba(255,255,255,.13);--edge:rgba(255,255,255,.16);--rain:#B5E1FF}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:#1B3A6B}
 body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--t);font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
@@ -480,6 +481,8 @@ async function load(){
     else $('status').innerHTML='<span class="err">Can\'t reach the weather service · retrying</span>'; }
 }
 addEventListener('load',load); setInterval(load,REFRESH_MIN*6e4);
+// reload the whole page once a day at 3 AM so design updates reach the tablet on their own
+setInterval(()=>{ const n=new Date(); if(n.getHours()===3&&n.getMinutes()===0&&performance.now()>36e5) location.reload(); },60e3);
 </script>
 </body>
 </html>
